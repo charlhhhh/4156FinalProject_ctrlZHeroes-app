@@ -76,3 +76,4 @@ node_modules/
 *.zipClientApplication/target/classes/serviceAccountKey.json
 ClientApplication/target/classes/serviceAccountKey.json
 ClientApplication/target/classes/serviceAccountKey.json
+ClientApplication/target/classes/ctrlzheroes-app-firebase-adminsdk-9i62w-bc0624b0ae.json
