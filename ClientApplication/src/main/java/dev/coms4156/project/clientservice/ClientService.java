@@ -27,4 +27,9 @@ public class ClientService {
         restTemplate.patchForObject(url, null, String.class);
         return "Items successfully dispatched.";
     }
+
+    public String retrieveItem(String resourceId, String itemId) {
+        String url = GlobalInfo.BASE_URL + "/retrieveItem?resourceId=" + resourceId + "&itemId=" + itemId;
+        return restTemplate.getForObject(url, String.class);
+    }
 }

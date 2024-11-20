@@ -15,9 +15,14 @@ public class ClientController {
     return "index";
   }
 
-  @GetMapping("/create_donation.html")
+  @GetMapping("/createDonationPage")
   public String createDonationPage() {
-    return "create_donation"; // Thymeleaf automatically looks for create_donation.html in templates/
+    return "create_donation.html"; // Thymeleaf automatically looks for create_donation.html in templates/
+  }
+
+  @GetMapping("/retrieveItemPage")
+  public String retrieveItemPage() {
+    return "retrieve_item.html"; // Thymeleaf template
   }
 
   @PostMapping("/donation")
@@ -41,5 +46,11 @@ public class ClientController {
   @ResponseBody // Explicitly mark this as a response body
   public String dispatchItems(@RequestParam String resourceId) {
     return clientService.dispatchItems(resourceId);
+  }
+
+  @GetMapping("/retrieveItem")
+  @ResponseBody
+  public String retrieveItem(@RequestParam String resourceId, @RequestParam String itemId) {
+    return clientService.retrieveItem(resourceId, itemId);
   }
 }
