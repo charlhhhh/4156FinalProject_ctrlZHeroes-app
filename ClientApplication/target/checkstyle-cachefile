@@ -1,13 +1,6 @@
-#Fri Oct 18 01:27:23 EDT 2024
-/Users/xinczhang/Desktop/4156/4156FinalProject_ctrlZHeroes/FinalProject/src/main/java/dev/coms4156/project/finalproject/Request.java=1729187895466
-configuration*?=34435FD9D1363FFA81A68F5965CC7B08C0413F58
-/Users/xinczhang/Desktop/4156/4156FinalProject_ctrlZHeroes/FinalProject/src/test/java/dev/coms4156/project/individualproject/ResourceUnitTests.java=1729194967875
-/Users/xinczhang/Desktop/4156/4156FinalProject_ctrlZHeroes/FinalProject/src/test/java/dev/coms4156/project/individualproject/ItemUnitTests.java=1729187895468
-/Users/xinczhang/Desktop/4156/4156FinalProject_ctrlZHeroes/FinalProject/src/main/java/dev/coms4156/project/finalproject/FinalProjectApplication.java=1729228636023
-/Users/xinczhang/Desktop/4156/4156FinalProject_ctrlZHeroes/FinalProject/src/test/java/dev/coms4156/project/individualproject/RequestUnitTests.java=1729187895468
-/Users/xinczhang/Desktop/4156/4156FinalProject_ctrlZHeroes/FinalProject/src/main/java/dev/coms4156/project/finalproject/Resource.java=1729187895466
-/Users/xinczhang/Desktop/4156/4156FinalProject_ctrlZHeroes/FinalProject/src/main/resources/application.properties=1729187895467
-/Users/xinczhang/Desktop/4156/4156FinalProject_ctrlZHeroes/FinalProject/src/main/java/dev/coms4156/project/finalproject/Item.java=1729187895466
-module-resource*?\:checkstyle-xpath-suppressions.xml=30227F093F7C079A9DDEB1EC3AFA03E770215ACC
-module-resource*?\:checkstyle-suppressions.xml=50B13F8B137720F0C60F0ECE9F053F024D26339F
-/Users/xinczhang/Desktop/4156/4156FinalProject_ctrlZHeroes/FinalProject/src/main/java/dev/coms4156/project/finalproject/MyFileDatabase.java=1729228636023
+#Tue Nov 19 20:08:49 EST 2024
+/Users/ruanqirui/4156FinalProject_ctrlZHeroes-app/ClientApplication/src/main/java/dev/coms4156/project/\ clientservice/GlobalInfo.java=1732058800159
+/Users/ruanqirui/4156FinalProject_ctrlZHeroes-app/ClientApplication/src/main/resources/application.properties=1732058729787
+configuration*?=4A1B119BEDAA767913538E408D8BB0EA63BCB17B
+module-resource*?\:checkstyle-suppressions.xml=A711C356477AB2A6D58ADC8CF24B8DAC007490CF
+module-resource*?\:checkstyle-xpath-suppressions.xml=1A94A4015DAA7FDFDC382372F8DDFFE7A8D57224
