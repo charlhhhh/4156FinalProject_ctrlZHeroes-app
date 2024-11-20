@@ -67,3 +67,10 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Maven/Gradle build output directories
+/target/
+*.jar
+*.war
+*.ear
+*.zip
