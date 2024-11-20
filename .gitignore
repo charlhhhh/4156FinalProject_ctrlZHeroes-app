@@ -74,3 +74,5 @@ node_modules/
 *.war
 *.ear
 *.zipClientApplication/target/classes/serviceAccountKey.json
+ClientApplication/target/classes/serviceAccountKey.json
+ClientApplication/target/classes/serviceAccountKey.json
