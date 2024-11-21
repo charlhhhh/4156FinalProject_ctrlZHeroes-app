@@ -12,19 +12,24 @@ async function createDonation() {
   document.getElementById("result").innerText = result;
 }
 
-async function retrieveItems() {
+async function retrieveAvailableItems() {
   const resourceId = document.getElementById("resourceId").value;
-  const response = await fetch(`/client/availableItems?resourceId=${resourceId}`);
-  const result = await response.text();
-  document.getElementById("result").innerText = result;
+
+  fetch(`/client/retrieveAvailableItems?resourceId=${resourceId}`)
+  .then((response) => {
+    if (!response.ok) throw new Error("Failed to retrieve available items.");
+    return response.text();
+  })
+  .then((data) => {
+    const resultDiv = document.getElementById("availableItemsResult");
+    resultDiv.innerHTML = `<pre>${data}</pre>`;
+  })
+  .catch((error) => {
+    console.error(error);
+    alert("Error retrieving available items.");
+  });
 }
 
-async function dispatchItems() {
-  const resourceId = document.getElementById("resourceId").value;
-  const response = await fetch(`/client/dispatch?resourceId=${resourceId}`, { method: 'PATCH' });
-  const result = await response.text();
-  document.getElementById("result").innerText = result;
-}
 
 function retrieveItem() {
   const resourceId = document.getElementById("resourceId").value;
@@ -50,6 +55,56 @@ function retrieveItem() {
   .catch(error => {
     console.error("Error fetching item:", error);
     document.getElementById("result").innerText = "Failed to retrieve the item. Please try again.";
+  });
+}
+
+function createRequest() {
+  const requestId = document.getElementById("requestId").value;
+  const itemIds = document.getElementById("itemIds").value.split(",");
+  const status = document.getElementById("status").value;
+  const priorityLevel = document.getElementById("priorityLevel").value;
+  const requesterInfo = document.getElementById("requesterInfo").value;
+
+  fetch(`/client/createRequest`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ requestId, itemIds, status, priorityLevel, requesterInfo }),
+  })
+  .then((response) => {
+    if (!response.ok) throw new Error("Failed to create request.");
+    return response.text();
+  })
+  .then((data) => {
+    const resultDiv = document.getElementById("createRequestResult");
+    resultDiv.innerHTML = `<pre>${data}</pre>`;
+  })
+  .catch((error) => {
+    console.error(error);
+    alert("Error creating request.");
+  });
+}
+
+function retrieveDispatchedItems() {
+  const resourceId = document.getElementById("resourceId").value;
+
+  fetch(`/client/dispatchedItems?resourceId=${resourceId}`)
+  .then((response) => {
+    if (!response.ok) {
+      // Handle HTTP errors (e.g., 404, 500)
+      return response.text().then((errorMessage) => {
+        throw new Error(errorMessage || "Error retrieving dispatched items.");
+      });
+    }
+    return response.text();
+  })
+  .then((data) => {
+    const resultDiv = document.getElementById("dispatchedItemsResult");
+    resultDiv.innerHTML = `<pre>${data}</pre>`;
+  })
+  .catch((error) => {
+    // Display error message to the user
+    const resultDiv = document.getElementById("dispatchedItemsResult");
+    resultDiv.innerHTML = `<div class="error-message">Error: ${error.message}</div>`;
   });
 }
 
