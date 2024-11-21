@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create Request</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/app.js"></script>
+</head>
+<body>
+<h2>Create a Request</h2>
+<form id="createRequestForm">
+  <label for="requestId">Request ID:</label>
+  <input type="text" id="requestId" required><br>
+
+  <label for="itemIds">Item IDs (comma-separated):</label>
+  <input type="text" id="itemIds" required><br>
+
+  <label for="status">Status:</label>
+  <input type="text" id="status" required><br>
+
+  <label for="priorityLevel">Priority Level:</label>
+  <input type="text" id="priorityLevel" required><br>
+
+  <label for="requesterInfo">Requester Info:</label>
+  <input type="text" id="requesterInfo" required><br>
+
+  <button type="button" onclick="createRequest()">Submit</button>
+</form>
+<div id="createRequestResult" class="result"></div>
+</body>
+</html>
