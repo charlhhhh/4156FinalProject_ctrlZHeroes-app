@@ -1,12 +1,4 @@
-dev/coms4156/project/individualproject/Department.class
-dev/coms4156/project/finalproject/MyFileDatabase.class
-dev/coms4156/project/finalproject/Request.class
-dev/coms4156/project/finalproject/Scheduler.class
-dev/coms4156/project/finalproject/Item.class
-dev/coms4156/project/individualproject/RouteController.class
-dev/coms4156/project/individualproject/IndividualProjectApplication.class
-dev/coms4156/project/individualproject/Course.class
-dev/coms4156/project/finalproject/RouteController.class
-dev/coms4156/project/finalproject/FinalProjectApplication.class
-dev/coms4156/project/individualproject/MyFileDatabase.class
-dev/coms4156/project/finalproject/Resource.class
+dev/coms4156/project/clientservice/ClientService.class
+dev/coms4156/project/clientservice/Application.class
+dev/coms4156/project/clientservice/GlobalInfo.class
+dev/coms4156/project/clientservice/ClientController.class
