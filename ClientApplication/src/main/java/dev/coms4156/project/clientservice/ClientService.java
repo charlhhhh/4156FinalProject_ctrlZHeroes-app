@@ -22,10 +22,19 @@ public class ClientService {
         return restTemplate.getForObject(url, String.class);
     }
 
-    public String dispatchItems(String resourceId) {
-        String url = GlobalInfo.BASE_URL + GlobalInfo.DISPATCH_ITEMS + "?resourceId=" + resourceId;
-        restTemplate.patchForObject(url, null, String.class);
-        return "Items successfully dispatched.";
+    public String createRequest(String requestId, String itemIds, String status, String priorityLevel, String requesterInfo) {
+        String url = GlobalInfo.BASE_URL + GlobalInfo.CREATE_REQUEST
+            + "?requestId=" + requestId
+            + "&itemIds=" + itemIds
+            + "&status=" + status
+            + "&priorityLevel=" + priorityLevel
+            + "&requesterInfo=" + requesterInfo;
+        return restTemplate.postForObject(url, null, String.class);
+    }
+
+    public String retrieveDispatchedItems(String resourceId) {
+        String url = GlobalInfo.BASE_URL + GlobalInfo.RETRIEVE_DISPATCHED_ITEMS + "?resourceId=" + resourceId;
+        return restTemplate.getForObject(url, String.class);
     }
 
     public String retrieveItem(String resourceId, String itemId) {
