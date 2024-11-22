@@ -7,4 +7,8 @@
 /dataSources/
 /dataSources.local.xml
 
-/src/main/resources/firebase-service-account.json
+./ClientApplication/src/main/resources/static/js/firebase-service-account.json
+
+./ClientApplication/target/
+*.jar
+
