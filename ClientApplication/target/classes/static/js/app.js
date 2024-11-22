@@ -43,19 +43,18 @@ function retrieveItem() {
   const url = `/client/retrieveItem?resourceId=${resourceId}&itemId=${itemId}`;
 
   fetch(url)
-  .then((response) => {
+  .then(response => {
     if (!response.ok) {
-      throw new Error("Item not found or failed to retrieve.");
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-    return response.json(); // Assuming your backend returns JSON
+    return response.text();
   })
-  .then((item) => {
-    renderItemCard(item); // Call renderItemCard to display the item details
+  .then(data => {
+    document.getElementById("result").innerText = data;
   })
-  .catch((error) => {
-    console.error(error);
-    const resultDiv = document.getElementById("result");
-    resultDiv.innerHTML = `<div class="error-message">Error: ${error.message}</div>`;
+  .catch(error => {
+    console.error("Error fetching item:", error);
+    document.getElementById("result").innerText = "Failed to retrieve the item. Please try again.";
   });
 }
 
