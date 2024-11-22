@@ -2,3 +2,4 @@ dev/coms4156/project/clientservice/ClientService.class
 dev/coms4156/project/clientservice/Application.class
 dev/coms4156/project/clientservice/GlobalInfo.class
 dev/coms4156/project/clientservice/ClientController.class
+dev/coms4156/project/clientservice/FirebaseConfig.class

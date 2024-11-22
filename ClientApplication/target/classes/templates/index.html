@@ -3,6 +3,53 @@
 <head>
   <title>Resource Management Client</title>
   <link rel="stylesheet" href="/css/style.css">
+  <script type="module">
+    // Import Firebase modules from CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBu2UdrASHov-J2seUynL7HqynLs4PNPBc",
+      authDomain: "ctrlzheroes-app.firebaseapp.com",
+      projectId: "ctrlzheroes-app",
+      storageBucket: "ctrlzheroes-app.firebasestorage.app",
+      messagingSenderId: "533252141666",
+      appId: "1:533252141666:web:65c5426bf78d560131d73b",
+      measurementId: "G-SEK9ZE20W1"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Show logged-in user information
+    window.addEventListener("DOMContentLoaded", () => {
+      const userInfoDiv = document.createElement("div");
+      userInfoDiv.id = "userInfo";
+      document.body.insertBefore(userInfoDiv, document.querySelector("nav"));
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userInfoDiv.innerHTML = `<p>Welcome, ${user.email}! <a href="#" id="logoutLink">Logout</a></p>`;
+          document.getElementById("logoutLink").addEventListener("click", logout);
+        } else {
+          userInfoDiv.innerHTML = `<p><a href="/client/loginPage">Login</a></p>`;
+        }
+      });
+    });
+
+    // Logout function
+    async function logout() {
+      try {
+        await signOut(auth);
+        alert("Logged out successfully!");
+        window.location.href = "/client/loginPage";
+      } catch (error) {
+        console.error("Error logging out:", error.message);
+      }
+    }
+  </script>
 </head>
 <body>
 <h1>Resource Management Client</h1>
@@ -12,7 +59,7 @@
   <a href="/client/retrieveItemPage">Retrieve Item</a>
   <a href="/client/retrieveAvailableItemsPage">Check Available Items</a>
   <a href="/client/retrieveDispatchedItemsPage">Check Dispatched Items</a>
-
+  <a href="/client/loginPage">User Log in</a>
 </nav>
 </body>
 </html>
