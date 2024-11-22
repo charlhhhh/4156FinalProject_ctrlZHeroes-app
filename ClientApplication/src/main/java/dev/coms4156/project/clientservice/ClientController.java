@@ -25,6 +25,24 @@ public class ClientController {
     return "retrieve_item.html"; // Thymeleaf template
   }
 
+  // Page for retrieving available items
+  @GetMapping("/retrieveAvailableItemsPage")
+  public String retrieveAvailableItemsPage() {
+    return "retrieve_available_items.html"; // Thymeleaf automatically looks for retrieve_available_items.html
+  }
+
+  // Page for creating a request
+  @GetMapping("/createRequestPage")
+  public String createRequestPage() {
+    return "create_request.html"; // Thymeleaf automatically looks for create_request.html
+  }
+
+  // Page for retrieving dispatched items
+  @GetMapping("/retrieveDispatchedItemsPage")
+  public String retrieveDispatchedItemsPage() {
+    return "retrieve_dispatched_items.html"; // Thymeleaf automatically looks for retrieve_dispatched_items.html
+  }
+
   @PostMapping("/donation")
   @ResponseBody // Explicitly mark this as a response body
   public String createDonation(
@@ -36,21 +54,37 @@ public class ClientController {
     return clientService.createDonation(resourceId, itemType, quantity, expirationDate, donorId);
   }
 
-  @GetMapping("/availableItems")
-  @ResponseBody // Explicitly mark this as a response body
-  public String retrieveAvailableItems(@RequestParam String resourceId) {
-    return clientService.retrieveAvailableItems(resourceId);
-  }
-
-  @PatchMapping("/dispatch")
-  @ResponseBody // Explicitly mark this as a response body
-  public String dispatchItems(@RequestParam String resourceId) {
-    return clientService.dispatchItems(resourceId);
-  }
-
   @GetMapping("/retrieveItem")
   @ResponseBody
   public String retrieveItem(@RequestParam String resourceId, @RequestParam String itemId) {
     return clientService.retrieveItem(resourceId, itemId);
   }
+
+  // API for retrieving available items
+  @GetMapping("/retrieveAvailableItems")
+  @ResponseBody
+  public String retrieveAvailableItems(@RequestParam String resourceId) {
+    return clientService.retrieveAvailableItems(resourceId);
+  }
+
+  // API for creating a request
+  @PostMapping("/createRequest")
+  @ResponseBody
+  public String createRequest(
+      @RequestParam String requestId,
+      @RequestParam String itemIds,
+      @RequestParam String status,
+      @RequestParam String priorityLevel,
+      @RequestParam String requesterInfo
+  ) {
+    return clientService.createRequest(requestId, itemIds, status, priorityLevel, requesterInfo);
+  }
+
+  // API for retrieving dispatched items
+  @GetMapping("/retrieveDispatchedItems")
+  @ResponseBody
+  public String retrieveDispatchedItems(@RequestParam String resourceId) {
+    return clientService.retrieveDispatchedItems(resourceId);
+  }
+
 }

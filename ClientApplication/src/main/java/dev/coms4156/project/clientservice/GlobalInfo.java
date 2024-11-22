@@ -11,7 +11,8 @@ public class GlobalInfo {
   // API Endpoints
   public static final String CREATE_DONATION = "/createDonation";
   public static final String RETRIEVE_AVAILABLE_ITEMS = "/retrieveAvailableItems";
-  public static final String DISPATCH_ITEMS = "/processRequests";
+  public static final String CREATE_REQUEST= "/createRequest";
+  public static final String RETRIEVE_DISPATCHED_ITEMS = "/retrieveDispatchedItems";
 
   private GlobalInfo() {
     // Prevent instantiation
