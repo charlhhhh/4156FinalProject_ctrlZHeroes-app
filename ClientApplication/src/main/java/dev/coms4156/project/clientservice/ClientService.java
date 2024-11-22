@@ -2,10 +2,22 @@ package dev.coms4156.project.clientservice;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ClientService {
-    private final RestTemplate restTemplate = new RestTemplate();
+    // private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
+
+    // Default constructor for production
+    public ClientService() {
+        this.restTemplate = new RestTemplate();
+    }
+
+    // Constructor for testing
+    public ClientService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public String createDonation(String resourceId, String itemType, int quantity, String expirationDate, String donorId) {
         String url = GlobalInfo.BASE_URL + GlobalInfo.CREATE_DONATION
@@ -14,6 +26,7 @@ public class ClientService {
             + "&quantity=" + quantity
             + "&expirationDate=" + expirationDate
             + "&donorId=" + donorId;
+        System.out.println(url);
         return restTemplate.postForObject(url, null, String.class);
     }
 
