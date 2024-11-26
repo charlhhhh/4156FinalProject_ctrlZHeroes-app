@@ -1,5 +1,9 @@
 package dev.coms4156.project.clientservice;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -85,6 +89,37 @@ public class ClientController {
   @ResponseBody
   public String retrieveDispatchedItems(@RequestParam String resourceId) {
     return clientService.retrieveDispatchedItems(resourceId);
+  }
+
+  @GetMapping("/loginPage")
+  public String loginPage() {
+      return "login.html"; // Thymeleaf automatically resolves to login.html in the templates/ directory
+  }
+
+  @GetMapping("/registerPage")
+  public String registerPage() {
+      return "register.html"; // Thymeleaf automatically resolves to login.html in the templates/ directory
+  }
+
+  // ================== Firebase Authentication Endpoint ==================
+
+  /**
+   * Verifies a Firebase token sent from the client.
+   * 
+   * @param token Firebase ID token sent in the Authorization header
+   * @return UID of the authenticated user or an error message
+   */
+  @PostMapping("/auth/verify-token")
+  @ResponseBody
+  public String verifyToken(@RequestHeader("Authorization") String token) {
+    try {
+      // Verify the token using Firebase Auth
+      FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+      String uid = decodedToken.getUid();
+      return "User authenticated successfully. UID: " + uid;
+    } catch (FirebaseAuthException e) {
+      return "Authentication failed: " + e.getMessage();
+    }
   }
 
 }
