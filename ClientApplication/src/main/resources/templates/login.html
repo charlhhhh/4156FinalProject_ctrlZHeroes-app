@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+    h2 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      color: #555;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 1.5rem;
+      background-color: #ff6200;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #d02d05;
+    }
+    .redirect {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .redirect a {
+      color: #d64b00;
+      text-decoration: none;
+    }
+    .redirect a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBu2UdrASHov-J2seUynL7HqynLs4PNPBc",
+      authDomain: "ctrlzheroes-app.firebaseapp.com",
+      projectId: "ctrlzheroes-app",
+      storageBucket: "ctrlzheroes-app.firebasestorage.app",
+      messagingSenderId: "533252141666",
+      appId: "1:533252141666:web:65c5426bf78d560131d73b",
+      measurementId: "G-SEK9ZE20W1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.login = async function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log("User logged in:", userCredential.user);
+        alert("Login successful!");
+        window.location.href = "/client/";
+      } catch (error) {
+        console.error("Error logging in:", error.message);
+        alert("Login failed: " + error.message);
+      }
+    };
+  </script>
+</head>
+<body>
+  <div class="login-container">
+    <h2>User Log In</h2>
+    <form id="loginForm">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter your password" required>
+
+      <button type="button" onclick="login()">Login</button>
+    </form>
+    <div class="redirect">
+      Don't have an account? <a href="/client/registerPage">Register here</a>.
+    </div>
+  </div>
+</body>
+</html>
