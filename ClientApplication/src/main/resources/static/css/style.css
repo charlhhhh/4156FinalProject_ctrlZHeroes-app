@@ -116,3 +116,13 @@ footer {
   font-size: 14px;
   color: #777;
 }
+
+.error-message {
+  color: red;
+  background-color: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+}

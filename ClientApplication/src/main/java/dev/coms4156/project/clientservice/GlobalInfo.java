@@ -6,7 +6,7 @@ package dev.coms4156.project.clientservice;
 public class GlobalInfo {
 
   // Base URL of the backend service
-  public static final String BASE_URL = "https://ase-team.ue.r.appspot.com";
+  public static final String BASE_URL = "https://ase-service.de.r.appspot.com";
 
   // API Endpoints
   public static final String CREATE_DONATION = "/createDonation";

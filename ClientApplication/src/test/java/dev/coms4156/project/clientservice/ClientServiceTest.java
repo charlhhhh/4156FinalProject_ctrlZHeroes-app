@@ -61,7 +61,7 @@ public class ClientServiceTest {
     // Mocking the RestTemplate response
     when(restTemplate.postForObject(eq(url), any(), eq(String.class))).thenReturn(expectedResponse);
 
-    String result = clientService.createRequest("req1", "item1,item2", "open", "high", "requester123");
+    String result = clientService.createRequest("item1,item2", "high", "requester123");
 
     assertEquals(expectedResponse, result);
   }
