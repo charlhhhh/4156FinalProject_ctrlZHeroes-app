@@ -1,24 +1,69 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Create a Request</title>-->
+<!--  &lt;!&ndash; Link to the external CSS file &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="styles.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="card">-->
+<!--  <h2>Create a Request</h2>-->
+<!--  <form id="createRequestForm">-->
+<!--    <label for="itemIds">Item IDs (comma-separated):</label>-->
+<!--    <input type="text" id="itemIds" placeholder="Enter item IDs">-->
+
+<!--    <label for="priorityLevel">Priority Level:</label>-->
+<!--    <input type="text" id="priorityLevel" placeholder="Enter priority level">-->
+
+<!--    <label for="requesterInfo">Requester Info:</label>-->
+<!--    <input type="text" id="requesterInfo" placeholder="Enter your info">-->
+
+<!--    <button type="button" onclick="submitForm()">Submit</button>-->
+<!--  </form>-->
+<!--  <footer>-->
+<!--    <p>&copy; 2024 Resource Management System</p>-->
+<!--  </footer>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--  function submitForm() {-->
+<!--    alert("Submit button clicked!");-->
+<!--  }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Create Request</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a Request</title>
   <link rel="stylesheet" href="/css/style.css">
   <script type="module" src="/js/app.js"></script>
 </head>
 <body>
-<h2>Create a Request</h2>
-<form id="createRequestForm">
-  <label for="itemIds">Item IDs (comma-separated):</label>
-  <input type="text" id="itemIds" required><br>
+<div class="container">
+  <h2>Create a Request</h2>
+  <form id="createRequestForm">
+    <label for="itemIds">Item IDs (comma-separated):</label>
+    <input type="text" id="itemIds" placeholder="Enter item IDs">
 
-  <label for="priorityLevel">Priority Level:</label>
-  <input type="text" id="priorityLevel" required><br>
+    <label for="priorityLevel">Priority Level:</label>
+    <input type="text" id="priorityLevel" placeholder="Enter priority level">
 
-  <label for="requesterInfo">Requester Info:</label>
-  <input type="text" id="requesterInfo" required><br>
+    <label for="requesterInfo">Requester Info:</label>
+    <input type="text" id="requesterInfo" placeholder="Enter your info">
 
-  <button type="button" onclick="createRequest()">Submit</button>
-</form>
-<div id="createRequestResult" class="result"></div>
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+  <div id="result" class="result"></div>
+</div>
+
+<footer style="text-align: center; margin-top: 20px;">
+  <p>&copy; 2024 Resource Management System</p>
+</footer>
 </body>
 </html>
+
