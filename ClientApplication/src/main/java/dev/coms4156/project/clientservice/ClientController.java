@@ -120,7 +120,7 @@ public class ClientController {
 
   /**
    * Verifies a Firebase token sent from the client.
-   * 
+   *
    * @param token Firebase ID token sent in the Authorization header
    * @return UID of the authenticated user or an error message
    */
