@@ -48,26 +48,36 @@ public class ClientController {
   }
 
   @PostMapping("/donation")
-  @ResponseBody // Explicitly mark this as a response body
+  @ResponseBody
   public String createDonation(
+      @RequestHeader("Authorization") String token,
       @RequestParam String resourceId,
       @RequestParam String itemType,
       @RequestParam int quantity,
       @RequestParam String expirationDate,
       @RequestParam String donorId) {
+    if (!isUserAuthenticated(token)) {
+      return "Unauthorized access.";
+    }
     return clientService.createDonation(resourceId, itemType, quantity, expirationDate, donorId);
   }
 
   @GetMapping("/retrieveItem")
   @ResponseBody
-  public String retrieveItem(@RequestParam String resourceId, @RequestParam String itemId) {
+  public String retrieveItem(@RequestHeader("Authorization") String token, @RequestParam String resourceId, @RequestParam String itemId) {
+    if (!isUserAuthenticated(token)) {
+      return "Unauthorized access.";
+    }
     return clientService.retrieveItem(resourceId, itemId);
   }
 
   // API for retrieving available items
   @GetMapping("/retrieveAvailableItems")
   @ResponseBody
-  public String retrieveAvailableItems(@RequestParam String resourceId) {
+  public String retrieveAvailableItems(@RequestHeader("Authorization") String token, @RequestParam String resourceId) {
+    if (!isUserAuthenticated(token)) {
+      return "Unauthorized access.";
+    }
     return clientService.retrieveAvailableItems(resourceId);
   }
 
@@ -75,19 +85,26 @@ public class ClientController {
   @PostMapping("/createRequest")
   @ResponseBody
   public String createRequest(
+      @RequestHeader("Authorization") String token,
       @RequestParam String requestId,
       @RequestParam String itemIds,
       @RequestParam String status,
       @RequestParam String priorityLevel,
       @RequestParam String requesterInfo
   ) {
+    if (!isUserAuthenticated(token)) {
+      return "Unauthorized access.";
+    }
     return clientService.createRequest(requestId, itemIds, status, priorityLevel, requesterInfo);
   }
 
   // API for retrieving dispatched items
   @GetMapping("/retrieveDispatchedItems")
   @ResponseBody
-  public String retrieveDispatchedItems(@RequestParam String resourceId) {
+  public String retrieveDispatchedItems(@RequestHeader("Authorization") String token, @RequestParam String resourceId) {
+    if (!isUserAuthenticated(token)) {
+      return "Unauthorized access.";
+    }
     return clientService.retrieveDispatchedItems(resourceId);
   }
 
@@ -121,5 +138,19 @@ public class ClientController {
       return "Authentication failed: " + e.getMessage();
     }
   }
+
+  /**
+   * Helper method to validate Firebase token.
+   */
+  private boolean isUserAuthenticated(String token) {
+    try {
+      FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+      return decodedToken != null;
+    } catch (FirebaseAuthException e) {
+      System.out.println("Authentication failed: " + e.getMessage());
+      return false;
+    }
+  }
+
 
 }
