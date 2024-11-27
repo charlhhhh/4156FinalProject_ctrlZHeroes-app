@@ -86,16 +86,14 @@ public class ClientController {
   @ResponseBody
   public String createRequest(
       @RequestHeader("Authorization") String token,
-      @RequestParam String requestId,
       @RequestParam String itemIds,
-      @RequestParam String status,
       @RequestParam String priorityLevel,
       @RequestParam String requesterInfo
   ) {
     if (!isUserAuthenticated(token)) {
       return "Unauthorized access.";
     }
-    return clientService.createRequest(requestId, itemIds, status, priorityLevel, requesterInfo);
+    return clientService.createRequest(itemIds, priorityLevel, requesterInfo);
   }
 
   // API for retrieving dispatched items
