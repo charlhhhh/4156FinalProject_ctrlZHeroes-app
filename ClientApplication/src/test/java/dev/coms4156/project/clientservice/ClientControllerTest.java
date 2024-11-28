@@ -100,7 +100,7 @@ public class ClientControllerTest {
 
     @Test
     public void testCreateRequestEndpoint() throws Exception {
-        when(clientService.createRequest("req1", "item1,item2", "open", "high", "requester123"))
+        when(clientService.createRequest("item1,item2", "high", "requester123"))
             .thenReturn("Request Created");
 
         mockMvc.perform(post("/client/createRequest")

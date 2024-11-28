@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Create Request</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a Request</title>
   <link rel="stylesheet" href="/css/style.css">
   <script type="module" src="/js/app.js"></script>
 </head>
 <body>
-<h2>Create a Request</h2>
-<form id="createRequestForm">
-  <label for="requestId">Request ID:</label>
-  <input type="text" id="requestId" required><br>
+<div class="content-wrapper">
+  <div class="container">
+    <h2>Create a Request</h2>
+    <form id="createRequestForm">
+      <!-- Your form fields -->
+      <label for="itemIds">Item IDs (comma-separated):</label>
+      <input type="text" id="itemIds" placeholder="Enter item IDs">
 
-  <label for="itemIds">Item IDs (comma-separated):</label>
-  <input type="text" id="itemIds" required><br>
+      <label for="priorityLevel">Priority Level:</label>
+      <input type="text" id="priorityLevel" placeholder="Enter priority level">
 
-  <label for="status">Status:</label>
-  <input type="text" id="status" required><br>
+      <label for="requesterInfo">Requester Info:</label>
+      <input type="text" id="requesterInfo" placeholder="Enter your info">
 
-  <label for="priorityLevel">Priority Level:</label>
-  <input type="text" id="priorityLevel" required><br>
+      <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+    <div id="result" class="result"></div>
+  </div>
 
-  <label for="requesterInfo">Requester Info:</label>
-  <input type="text" id="requesterInfo" required><br>
+</div>
 
-  <button type="button" onclick="createRequest()">Submit</button>
-</form>
-<div id="createRequestResult" class="result"></div>
 </body>
+
 </html>
+
+

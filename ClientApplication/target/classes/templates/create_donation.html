@@ -6,6 +6,8 @@
   <script type="module" src="/js/app.js"></script>
 </head>
 <body>
+<div class="content-wrapper">
+  <div class="container">
 <h2>Create a Donation</h2>
 <form>
   <label>Resource ID:</label><input type="text" id="resourceId"><br>
@@ -15,6 +17,9 @@
   <label>Donor ID:</label><input type="text" id="donorId"><br>
   <button type="button" onclick="createDonation()">Submit</button>
 </form>
-<div id="result"></div>
+    <div id="result" class="result"></div>
+  </div>
+
+</div>
 </body>
 </html>
