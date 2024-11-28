@@ -1,4 +1,17 @@
 -------------------------------------------------------------------------------
 Test set: dev.coms4156.project.clientservice.ClientServiceTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.079 s -- in dev.coms4156.project.clientservice.ClientServiceTest
+Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.220 s <<< FAILURE! -- in dev.coms4156.project.clientservice.ClientServiceTest
+dev.coms4156.project.clientservice.ClientServiceTest.testCreateRequest -- Time elapsed: 1.140 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <Request Created> but was: <null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at dev.coms4156.project.clientservice.ClientServiceTest.testCreateRequest(ClientServiceTest.java:73)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
