@@ -34,6 +34,7 @@
         }
       });
     });
+
     // Show logged-in user information in the header
     window.addEventListener("DOMContentLoaded", () => {
       const userEmailSpan = document.getElementById("userEmail");
@@ -49,24 +50,6 @@
           userEmailSpan.textContent = "";
           logoutLink.style.display = "none";
           window.location.href = "/client/loginPage";
-        }
-      });
-    });
-
-
-    // Show logged-in user information
-    window.addEventListener("DOMContentLoaded", () => {
-      const userInfoDiv = document.createElement("div");
-      userInfoDiv.id = "userInfo";
-      document.body.insertBefore(userInfoDiv, document.querySelector("nav"));
-
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          userInfoDiv.innerHTML = `<p>Welcome, ${user.email}! <a href="#" id="logoutLink">Logout</a></p>`;
-          document.getElementById("logoutLink").addEventListener("click", logout);
-        } else {
-          userInfoDiv.innerHTML = `<p><a href="/client/loginPage">Login</a></p>`;
-          // window.location.href = "/client/loginPage";
         }
       });
     });
@@ -99,12 +82,10 @@
   </div>
 </header>
 
-<!-- 主内容容器 -->
 <div class="container">
   <h2>Main Dashboard</h2>
   <p>Welcome to the Resource Management Client. Use the following options to manage resources efficiently.</p>
 
-  <!-- 功能模块 -->
   <div class="features-grid">
     <div class="card">
       <h3>Create a Request</h3>
