@@ -2,22 +2,7 @@
 
 # Client Application for Donation Management Service
 
-This project is a sample **Client Application** that interacts with the **Donation Management Service**, deployed at `https://ase-team.ue.r.appspot.com`. The client allows users to create donations, retrieve items, and dispatch resources using a clean web interface and REST APIs.
-
----
-
-## **Table of Contents**
-- [Overview](#overview)
-- [Target Audience](#target-audience)
-- [Benefits](#benefits)
-- [Prerequisites](#prerequisites)
-- [Setup Instructions](#setup-instructions)
-    - [Clone the Repository](#clone-the-repository)
-    - [Build the Project](#build-the-project)
-    - [Run the Application](#run-the-application)
-    - [Test the Application](#test-the-application)
-- [Endpoints and Features](#endpoints-and-features)
-- [Developing Your Own Client](#developing-your-own-client)
+This is the GitHub repository for the service portion of the Team Project associated with COMS 4156 Advanced Software Engineering. Our group, ctrlZHeroes, comprises the following members: Yanxi Chen, Qirui Ruan, Xinchen Zhang, Songwen Zhao, and Charlie Shen.
 
 ---
 
@@ -48,9 +33,8 @@ This application is specifically designed to assist:
 
 ---
 
-## **Features and Benefits**
+## **Features**
 
-### **Features**
 1. **Create Donations**:
   - Donors can quickly log their contributions (e.g., food, medical supplies, clothing) into the system via a user-friendly form.
   - Each item is categorized with metadata like expiration dates, donor information, and type.
@@ -59,35 +43,26 @@ This application is specifically designed to assist:
   - Shelter staff and managers can search for specific items using their IDs or view a list of available resources.
   - A clean, card-like layout displays item details clearly.
 
-3. **Dispatch Resources**:
-  - Allows managers to allocate resources to fulfill shelter needs.
-  - Status updates ensure transparency in resource tracking.
+3. **View Available Items**:
+  - Check a list of all available items by resource ID.
 
-4. **Web-Based Access**:
-  - The app is accessible from any browser, making it convenient for donors and shelter managers to interact with the system.
+4. **View Dispatched Items**:
+  - Track dispatched resources to ensure accountability and transparency.
+
+5. **Authentication**:
+- Secure login and registration powered by Firebase.
 
 ---
 
-### **Benefits**
-1. **Efficiency**:
-  - Automates resource tracking and reduces manual errors.
-  - Accelerates the donation, retrieval, and dispatch processes.
+## How the App and Service Work Together
 
-2. **Transparency**:
-  - Clear visibility into the inventory and resource allocation.
-  - Accurate reporting of item statuses and donor contributions.
+The web application interacts with the service as follows:
 
-3. **Accessibility**:
-  - Enables seamless communication between donors and shelters through an intuitive web interface.
-  - Can be accessed from any device with an internet connection.
+  - The frontend handles user input, displaying data and collecting information such as resource requests.
+  - The backend service processes the requests, updates the database, and provides responses to the frontend.
+  - Requests such as retrieving resources, submitting donations, or checking dispatch status are processed via RESTful APIs provided by the service.
 
-4. **Cost-Effectiveness**:
-  - Reduces administrative costs by providing a centralized, automated system for managing resources.
 
-5. **Enhanced Impact**:
-  - Ensures resources are effectively distributed to those who need them most, helping shelters focus on their core mission of assisting the homeless.
-
-By addressing the unique needs of donors, shelters, and community organizations, the Donation Management Client Application brings structure and simplicity to the donation and resource management process.
 
 ---
 
@@ -125,14 +100,6 @@ http://localhost:8080/
 ```
 
 ### **4. Test the Application**
-
-#### Manual Testing
-- Navigate to the following pages in your browser:
-  - **Home Page**: [http://localhost:8080/](http://localhost:8080/)
-  - **Create Donation Page**: [http://localhost:8080/client/create_donation](http://localhost:8080/client/create_donation)
-  - **Retrieve Item Page**: [http://localhost:8080/client/retrieveItemPage](http://localhost:8080/client/retrieveItemPage)
-- Use the forms provided on these pages to interact with the service.
-
 #### API Testing
 You can test the APIs directly using tools like **Postman** or **curl**.
 
@@ -149,133 +116,190 @@ You can test the APIs directly using tools like **Postman** or **curl**.
   -d "expirationDate=2024-12-31" \
   -d "donorId=JohnDoe"
   ```
+#### End-to-end test
+In order to properly perform end-to-end tests, please follow the list and compare the results of the actions performed to the expected results provided.
+
+The following consists of a series of tests you should perform to ensure everything is working properly. Please complete the following checklist **IN ORDER** to ensure the results are as they are meant to be.
+
+**Please ensure no other applications are running that use up ports on your system.**
+
+---
+
+1. **Run the Application Server**
+
+    - Start the application server, ensuring it's accessible at `http://localhost:8000` or your deployed URL.
+    - **Expected Result:** The server runs without errors and is ready to accept connections.
+
+2. **Navigate to the Registration Page**
+
+    - Open your web browser and go to `http://localhost:8000/client/registerPage`.
+    - **Expected Result:** The registration page displays, titled "Register", with fields for Email and Password.
+
+3. **Register a New User**
+
+    - Fill out the registration form with the following information:
+        - **Email:** `testuser@example.com`
+        - **Password:** `TestPassword123`
+    - Click the **Register** button.
+    - **Expected Result:** A success message appears, and you are redirected to the login page titled "Login".
+
+4. **Attempt to Register with Invalid Data**
+
+    - Try registering with an invalid email format or leave the password field empty.
+    - **Expected Result:** An error message indicates that registration failed due to invalid input.
+
+5. **Navigate to the Login Page**
+
+    - Go to `http://localhost:8000/client/loginPage` if not already there.
+    - **Expected Result:** The login page displays with fields for Email and Password.
+
+6. **Login with Correct Credentials**
+
+    - Fill out the login form using:
+        - **Email:** `testuser@example.com`
+        - **Password:** `TestPassword123`
+    - Click the **Login** button.
+    - **Expected Result:** A success message appears, and you are redirected to the main dashboard displaying "Welcome, testuser@example.com!".
+
+7. **Login with Incorrect Credentials**
+
+    - Attempt to log in with an incorrect password.
+    - **Expected Result:** An error message indicates invalid credentials.
+
+8. **Verify Main Dashboard Access**
+
+    - Ensure you are on the main dashboard at `http://localhost:8000/client/`.
+    - **Expected Result:** The dashboard displays navigation options like "Create a Request" and "Create a Donation".
+
+9. **Create a Donation**
+
+    - Click **Go to Create Donation** to navigate to `http://localhost:8000/client/createDonationPage`.
+    - Fill out the form:
+        - **Resource ID:** `resource001`
+        - **Item Type:** `Medical Supplies`
+        - **Quantity:** `50`
+        - **Expiration Date:** Select a future date.
+        - **Donor ID:** `donor001`
+    - Click the **Submit** button.
+    - **Expected Result:** A confirmation message indicates the donation was successfully created.
+
+10. **Create a Request**
+
+    - Click **Go to Create Request** to navigate to `http://localhost:8000/client/createRequestPage`.
+    - Fill out the form:
+        - **Item IDs:** `item001,item002`
+        - **Priority Level:** `High`
+        - **Requester Info:** `Hospital A`
+    - Click the **Submit** button.
+    - **Expected Result:** A confirmation message indicates the request was successfully created.
+
+11. **Retrieve an Item**
+
+    - Click **Go to Retrieve Item** to navigate to `http://localhost:8000/client/retrieveItemPage`.
+    - Fill out the form:
+        - **Resource ID:** `exampleID`
+        - **Item ID:** `exampleID`
+    - Click the **Retrieve Item** button.
+    - **Expected Result:** The item's details are displayed on the page.
+
+12. **Check Available Items**
+
+    - Click **Check Items** under **Check Available Items** to navigate to `http://localhost:8000/client/retrieveAvailableItemsPage`.
+    - Enter **Resource ID:** `exampleID`.
+    - Click the **Retrieve** button.
+    - **Expected Result:** A list of available items related to `exampleID` is displayed.
+
+13. **Check Dispatched Items**
+
+    - Click **View Dispatched Items** under **Check Dispatched Items** to navigate to `http://localhost:8000/client/retrieveDispatchedItemsPage`.
+    - Enter **Resource ID:** `exampleID`.
+    - Click the **Retrieve** button.
+    - **Expected Result:** A list of dispatched items related to `exampleID` is displayed.
+
+14. **Test Logout Functionality**
+
+    - Click the **Logout** link/button in the header.
+    - **Expected Result:** You are logged out and redirected to the login page. The user email is no longer displayed.
+
+15. **Verify Access Control**
+
+    - Without logging in, try to access `http://localhost:8000/client/`.
+    - **Expected Result:** You are redirected to the login page, indicating that authentication is required.
+
+16. **Test Form Validation**
+
+    - Attempt to submit any form with empty fields or invalid data.
+    - **Expected Result:** Error messages prompt you to fill in required fields or correct invalid input.
+
+End of Testing
+
+---
+
+
+
 ## **Endpoints and Features**
 
 ### **Client Features**
-- **Home Page** (`/`): Provides a starting point for navigating to other pages.
-- **Create Donation Page** (`/client/create_donation`): Allows users to create a new donation by filling out a form.
-- **Retrieve Item Page** (`/client/retrieveItemPage`): Provides a UI to fetch details of an item by its ID and resource ID.
+- **Main Dashboard**: Provides navigation to all major functionalities.
+- **Create Donation Page** : Allows users to create a new donation by filling out a form.
+- **Retrieve Item Page** : Provides a UI to fetch details of an item by its ID and resource ID.
+- **Available Items Page**: Displays all available items based on a given resource ID.
+- **Dispatched Items Page**: Tracks dispatched resources for transparency.
+
 
 ### **Service API Endpoints**
 The client communicates with the **Donation Management Service** at `https://ase-team.ue.r.appspot.com`. Below are the service endpoints used:
 
-| Endpoint                  | Method | Description                         |
-|---------------------------|--------|-------------------------------------|
-| `/createDonation`         | POST   | Creates a new donation.             |
+| Endpoint                 | Method | Description                         |
+|--------------------------|--------|-------------------------------------|
+| `/createDonation`        | POST   | Creates a new donation.             |
 | `/retrieveAvailableItems` | GET    | Retrieves all available items.      |
-| `/retrieveItem`           | GET    | Retrieves details of a specific item.|
-| `/processRequests`        | PATCH  | Dispatches resources.               |
+| `/retrieveItem`          | GET    | Retrieves details of a specific item.|
+| `/createRequest`         | POST | 	Creates a new request specifying item IDs, priority level, and requester information.             |
+| `/retrieveDispatchedItems`                         |    GET  |        Fetches all dispatched items related to a given resource ID.                                                                                            |
+
 
 ### **Client-Side API Interaction**
 The client application uses the following API endpoints via the `ClientService` class:
 
 1. **Create Donation**:
-  - **Path**: `/client/donation`
-  - **Method**: `POST`
+  - **Purpose**: Creates a new donation entry.
   - **Parameters**:
     - `resourceId`
     - `itemType`
     - `quantity`
     - `expirationDate`
     - `donorId`
-  - **Description**: Allows donors to create a new donation entry.
 
 2. **Retrieve Item**:
   - **Path**: `/client/retrieveItem`
-  - **Method**: `GET`
   - **Parameters**:
     - `resourceId`
     - `itemId`
-  - **Description**: Fetches details about a specific item.
 
-3. **Dispatch Items**:
-  - **Path**: `/client/dispatch`
-  - **Method**: `PATCH`
+3. **createRequest**:
+  - **Purpose**: Creates a new request for specific items.
   - **Parameters**:
     - `resourceId`
-  - **Description**: Marks available items as dispatched for a specific resource.
 
 4. **Retrieve Available Items**:
-  - **Path**: `/client/availableItems`
-  - **Method**: `GET`
+  - **Purpose**: Fetches a list of all available items for a given resource ID.
   - **Parameters**:
     - `resourceId`
-  - **Description**: Fetches all items marked as available for a specific resource.
 
-## **Developing Your Own Client**
+5. **RetrieveDispatchedItems**:
+- **Purpose**: Retrieves a list of dispatched items based on the resource ID.
+- **Parameters**:
+    - `resourceId`
+---
+## **Tools Used 🛠️**
 
-If you'd like to create your own client for the **Donation Management Service**, follow the steps below:
+- **Maven**: Build management for the service.
+- **Spring Boot**: Backend API framework.
+- **Google Cloud Platform (GCP)**: Cloud hosting for service and app.
+- **JUnit**: Unit testing for the service.
+- **Checkstyle**: Ensures adherence to Java coding standards.  
 
-### **1. Understand the Service API**
-- The APIs are RESTful and use JSON for responses.
-- Refer to the following endpoints for supported operations:
-  | Endpoint                  | Method | Description                         |
-  |---------------------------|--------|-------------------------------------|
-  | `/createDonation`         | POST   | Creates a new donation.             |
-  | `/retrieveAvailableItems` | GET    | Retrieves all available items.      |
-  | `/retrieveItem`           | GET    | Retrieves details of a specific item.|
-  | `/processRequests`        | PATCH  | Dispatches resources.               |
-
-### **2. Include a REST Client Library**
-- For Java: Use `RestTemplate` or `WebClient`.
-- For JavaScript: Use `fetch` or libraries like `axios`.
-
-### **3. Set the Service Base URL**
-The service is deployed at: https://ase-team.ue.r.appspot.com.  
-Set this as the base URL for all your API requests.
-
-### **4. Example Java Code for API Calls**
-Here is a Java example using `RestTemplate` to interact with the service:
-
-```java
-import org.springframework.web.client.RestTemplate;
-
-public class DonationClient {
-    private static final String BASE_URL = "https://ase-team.ue.r.appspot.com";
-
-    public static void main(String[] args) {
-        RestTemplate restTemplate = new RestTemplate();
-
-        // Example: Retrieve Item
-        String resourceId = "123";
-        String itemId = "456";
-        String url = BASE_URL + "/retrieveItem?resourceId=" + resourceId + "&itemId=" + itemId;
-
-        String response = restTemplate.getForObject(url, String.class);
-        System.out.println("Response: " + response);
-    }
-}
-```
-
-### **5. Example JavaScript Code for API Calls**
-Here is a JavaScript example using `fetch`:
-```javascript
-const BASE_URL = "https://ase-team.ue.r.appspot.com";
-
-async function retrieveItem(resourceId, itemId) {
-  const url = `${BASE_URL}/retrieveItem?resourceId=${resourceId}&itemId=${itemId}`;
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error("Error retrieving item:", error);
-  }
-}
-```
-
-### **6. Configuration**
-Include the necessary dependencies in your project configuration file:  
-```
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
-```
 
 
 
