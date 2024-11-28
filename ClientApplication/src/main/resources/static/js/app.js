@@ -140,11 +140,19 @@ window.createRequest = async function () {
 
     // Retrieve input fields for user-provided data
     const itemIds = document.getElementById("itemIds").value.split(",").map(id => id.trim());
+    const itemQuantities = document.getElementById("itemQuantities").value.split(",").map(qty => parseInt(qty.trim(), 10));
     const requesterInfo = document.getElementById("requesterInfo").value;
+    const resourceId = document.getElementById("resourceId").value;
 
     // Validate user inputs
-    if (!itemIds.length || !requesterInfo) {
-      alert("Please provide both Item IDs and Requester Info.");
+    if (!itemIds.length || !itemQuantities.length || itemIds.length !== itemQuantities.length || !requesterInfo || !resourceId) {
+      alert("Please provide valid Item IDs, quantities, Requester Info, and Resource ID. Ensure IDs and quantities match.");
+      return;
+    }
+
+    // Check if all quantities are valid numbers
+    if (itemQuantities.some(qty => isNaN(qty) || qty <= 0)) {
+      alert("Please provide valid quantities (positive integers) for all items.");
       return;
     }
 
@@ -160,7 +168,15 @@ window.createRequest = async function () {
         "Authorization": token,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ requestId, itemIds, status, priorityLevel, requesterInfo }),
+      body: JSON.stringify({
+        requestId,
+        itemIds,
+        itemQuantities,
+        status,
+        priorityLevel,
+        requesterInfo,
+        resourceId,
+      }),
     });
 
     // Handle API response
