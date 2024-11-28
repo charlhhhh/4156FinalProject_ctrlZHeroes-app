@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ClientService {
@@ -37,15 +41,36 @@ public class ClientService {
         return restTemplate.getForObject(url, String.class);
     }
 
-    public String createRequest(String itemIds, String priorityLevel, String requesterInfo) {
+    public String createRequest(List<String> itemIds, List<Integer> itemQuantities, String status, String priorityLevel, String requesterInfo, String resourceId) {
         String requestId = generateRequestId();
-        String url = GlobalInfo.BASE_URL + GlobalInfo.CREATE_REQUEST
-            + "?requestId=" + requestId
-            + "&itemIds=" + itemIds
-            + "&status=" + "Pending"
-            + "&priorityLevel=" + priorityLevel
-            + "&requesterInfo=" + requesterInfo;
-        return restTemplate.postForObject(url, null, String.class);
+        String url = GlobalInfo.BASE_URL + GlobalInfo.CREATE_REQUEST;
+
+        // Construct the request body
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("requestId", requestId);
+        requestBody.put("itemIds", itemIds);
+        requestBody.put("itemQuantities", itemQuantities);
+        requestBody.put("status", status);
+        requestBody.put("priorityLevel", priorityLevel);
+        requestBody.put("requesterInfo", requesterInfo);
+        requestBody.put("resourceId", resourceId);
+
+        // Set headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // Create HTTP entity with headers and body
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
+
+        // Make the POST request
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            return restTemplate.postForObject(url, entity, String.class);
+        } catch (Exception e) {
+            // Handle exceptions (e.g., network errors, bad responses)
+            System.err.println("Error creating request: " + e.getMessage());
+            return null;
+        }
     }
 
     public String retrieveDispatchedItems(String resourceId) {

@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -86,14 +87,17 @@ public class ClientController {
   @ResponseBody
   public String createRequest(
       @RequestHeader("Authorization") String token,
-      @RequestParam String itemIds,
+      @RequestParam List<String> itemIds,
+      @RequestParam List<Integer> itemQuantities,
+      @RequestParam String status,
       @RequestParam String priorityLevel,
-      @RequestParam String requesterInfo
+      @RequestParam String requesterInfo,
+      @RequestParam String resourceId
   ) {
     if (!isUserAuthenticated(token)) {
       return "Unauthorized access.";
     }
-    return clientService.createRequest(itemIds, priorityLevel, requesterInfo);
+    return clientService.createRequest(itemIds, itemQuantities, status, priorityLevel, requesterInfo, resourceId);
   }
 
   // API for retrieving dispatched items
