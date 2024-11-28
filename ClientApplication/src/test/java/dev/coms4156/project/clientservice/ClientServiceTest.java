@@ -1,5 +1,7 @@
 package dev.coms4156.project.clientservice;
 
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -54,14 +56,19 @@ public class ClientServiceTest {
 
   @Test
   public void testCreateRequest() {
-    String url = GlobalInfo.BASE_URL + GlobalInfo.CREATE_REQUEST
-        + "?requestId=req1&itemIds=item1,item2&status=open&priorityLevel=high&requesterInfo=requester123";
+    List<String> itemIds = Arrays.asList("item1", "item2");
+    List<Integer> itemQuantities = Arrays.asList(1, 2);
+    String status = "Pending";
+    String priorityLevel = "high";
+    String requesterInfo = "requester123";
+    String resourceId = "R_TEST";
+
     String expectedResponse = "Request Created";
 
-    // Mocking the RestTemplate response
-    when(restTemplate.postForObject(eq(url), any(), eq(String.class))).thenReturn(expectedResponse);
+    // Mock the RestTemplate response
+    when(restTemplate.postForObject(any(String.class), any(), eq(String.class))).thenReturn(expectedResponse);
 
-    String result = clientService.createRequest("req1", "item1,item2", "open", "high", "requester123");
+    String result = clientService.createRequest(itemIds, itemQuantities, status, priorityLevel, requesterInfo, resourceId);
 
     assertEquals(expectedResponse, result);
   }

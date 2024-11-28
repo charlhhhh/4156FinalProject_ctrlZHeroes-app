@@ -1,5 +1,6 @@
 package dev.coms4156.project.clientservice;
 
+import java.util.Arrays;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -100,16 +101,17 @@ public class ClientControllerTest {
 
     @Test
     public void testCreateRequestEndpoint() throws Exception {
-        when(clientService.createRequest("req1", "item1,item2", "open", "high", "requester123"))
+        when(clientService.createRequest(Arrays.asList("item1", "item2"), Arrays.asList(1, 2), "Pending", "high", "requester123", "R_TEST"))
             .thenReturn("Request Created");
 
         mockMvc.perform(post("/client/createRequest")
                 .header("Authorization", "mock-token")
-                .param("requestId", "req1")
                 .param("itemIds", "item1,item2")
-                .param("status", "open")
+                .param("itemQuantities", "1,2")
+                .param("status", "Pending")
                 .param("priorityLevel", "high")
-                .param("requesterInfo", "requester123"))
+                .param("requesterInfo", "requester123")
+                .param("resourceId", "R_TEST"))
             .andExpect(status().isOk())
             .andExpect(content().string("Request Created"));
     }
