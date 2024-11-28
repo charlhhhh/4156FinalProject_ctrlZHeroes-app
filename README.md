@@ -175,11 +175,11 @@ The following consists of a series of tests you should perform to ensure everyth
 
     - Click **Go to Create Donation** to navigate to `http://localhost:8000/client/createDonationPage`.
     - Fill out the form:
-        - **Resource ID:** `resource001`
-        - **Item Type:** `Medical Supplies`
+        - **Resource ID:** `R_COLUMBIA`
+        - **Item Type:** `Medicine`
         - **Quantity:** `50`
         - **Expiration Date:** Select a future date.
-        - **Donor ID:** `donor001`
+        - **Donor ID:** `Amy`
     - Click the **Submit** button.
     - **Expected Result:** A confirmation message indicates the donation was successfully created.
 
@@ -187,7 +187,8 @@ The following consists of a series of tests you should perform to ensure everyth
 
     - Click **Go to Create Request** to navigate to `http://localhost:8000/client/createRequestPage`.
     - Fill out the form:
-        - **Item IDs:** `item001,item002`
+        - **Item IDs:** `b9d2c711-a230-11ef-9c7f-42010a400002,...`
+        - **Item Quantities:** `10,...`
         - **Priority Level:** `High`
         - **Requester Info:** `Hospital A`
     - Click the **Submit** button.
@@ -197,24 +198,24 @@ The following consists of a series of tests you should perform to ensure everyth
 
     - Click **Go to Retrieve Item** to navigate to `http://localhost:8000/client/retrieveItemPage`.
     - Fill out the form:
-        - **Resource ID:** `exampleID`
-        - **Item ID:** `exampleID`
+        - **Resource ID:** `R_COLUMBIA`
+        - **Item ID:** `e7a3dd6f-ccf4-4e2f-a632-e3085466b7fa`
     - Click the **Retrieve Item** button.
     - **Expected Result:** The item's details are displayed on the page.
 
 12. **Check Available Items**
 
     - Click **Check Items** under **Check Available Items** to navigate to `http://localhost:8000/client/retrieveAvailableItemsPage`.
-    - Enter **Resource ID:** `exampleID`.
+    - Enter **Resource ID:** `R_COLUMBIA`.
     - Click the **Retrieve** button.
-    - **Expected Result:** A list of available items related to `exampleID` is displayed.
+    - **Expected Result:** A list of available items related to `R_COLUMBIA` is displayed.
 
 13. **Check Dispatched Items**
 
     - Click **View Dispatched Items** under **Check Dispatched Items** to navigate to `http://localhost:8000/client/retrieveDispatchedItemsPage`.
-    - Enter **Resource ID:** `exampleID`.
+    - Enter **Resource ID:** `R_COLUMBIA`.
     - Click the **Retrieve** button.
-    - **Expected Result:** A list of dispatched items related to `exampleID` is displayed.
+    - **Expected Result:** A list of dispatched items related to `R_COLUMBIA` is displayed.
 
 14. **Test Logout Functionality**
 
@@ -299,7 +300,6 @@ The client application uses the following API endpoints via the `ClientService` 
 - **Google Cloud Platform (GCP)**: Cloud hosting for service and app.
 - **JUnit**: Unit testing for the service.
 - **Checkstyle**: Ensures adherence to Java coding standards.  
-
 
 
 
