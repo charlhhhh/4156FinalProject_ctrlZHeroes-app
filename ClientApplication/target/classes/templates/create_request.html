@@ -51,8 +51,10 @@
     <input type="text" id="itemIds" placeholder="Enter item IDs">
 
     <label for="itemQuantities">Item Quantities (comma-separated):</label>
-    <input type="text" id="itemQuantities" required>
+    <input type="text" id="itemQuantities" placeholder="Enter matching item quantities">
 
+    <label for="priorityLevel">Priority</label>
+    <input type="text" id="priorityLevel" placeholder="Enter your info">
 
     <label for="requesterInfo">Requester Info:</label>
     <input type="text" id="requesterInfo" placeholder="Enter your info">
@@ -60,7 +62,7 @@
     <label for="resourceId">Resource Id:</label>
     <input type="text" id="resourceId" placeholder="Enter your info">
 
-    <button type="button" onclick="submitForm()">Submit</button>
+    <button type="button" onclick="createRequest()">Submit</button>
   </form>
   <div id="result" class="result"></div>
 </div>

@@ -101,7 +101,7 @@ public class ClientControllerTest {
 
     @Test
     public void testCreateRequestEndpoint() throws Exception {
-        when(clientService.createRequest(Arrays.asList("item1", "item2"), Arrays.asList(1, 2), "Pending", "high", "requester123", "R_TEST"))
+        when(clientService.createRequest(Arrays.asList("item1", "item2"), Arrays.asList(1, 2), "high", "requester123", "R_TEST"))
             .thenReturn("Request Created");
 
         mockMvc.perform(post("/client/createRequest")
