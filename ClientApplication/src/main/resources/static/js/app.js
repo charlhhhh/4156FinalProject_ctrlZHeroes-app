@@ -60,8 +60,9 @@ window.retrieveAvailableItems = async function () {
 
     if (!response.ok) throw new Error("Failed to retrieve available items.");
 
-    const data = await response.text();
-    document.getElementById("availableItemsResult").innerHTML = `<pre>${data}</pre>`;
+    const data = await response.json();
+    renderItemList(data);
+    // document.getElementById("availableItemsResult").innerHTML = `<pre>${data}</pre>`;
   } catch (error) {
     console.error(error);
     alert("Error retrieving available items.");
@@ -177,17 +178,17 @@ window.createRequest = async function () {
     }).toString();
 
     // Make a fetch request to the backend
-    fetch(`/createRequest?${queryString}`, {
+    fetch(`/client/createRequest?${queryString}`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-      }
+        "Authorization": token,
+        "Content-Type": "application/json",
+      },
     })
     .then(response => {
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        return response.text();
       }
-      return response.json();
     })
     .then(data => {
       console.log("Success:", data);
@@ -247,6 +248,51 @@ function renderItemCard(item) {
         <p><span>Donor ID:</span> ${item.donorId}</p>
     `;
 }
+
+function renderItemList(items) {
+  const resultDiv = document.getElementById("result");
+
+  // Clear previous content
+  resultDiv.innerHTML = "";
+
+  // Check if the list is empty
+  if (!items || items.length === 0) {
+    resultDiv.innerHTML = "<p>No items found.</p>";
+    return;
+  }
+  // Check if items is an array
+  if (!Array.isArray(items)) {
+    console.error("Error: Expected an array of items, but received:", items);
+    resultDiv.innerHTML = "<p>Invalid data received. Unable to display items.</p>";
+    return;
+  }
+  // Create a container for the list
+  const listContainer = document.createElement("div");
+  listContainer.className = "item-list";
+
+  // Iterate over items and render each item
+  items.forEach((item, index) => {
+    const itemCard = document.createElement("div");
+    itemCard.className = "item-card";
+
+    itemCard.innerHTML = `
+      <h3>Item ${index + 1} Details</h3>
+      <p><strong>ID:</strong> ${item.itemId}</p>
+      <p><strong>Type:</strong> ${item.itemType}</p>
+      <p><strong>Quantity:</strong> ${item.quantity}</p>
+      <p><strong>Expiration:</strong> ${item.expirationDate}</p>
+      <p><strong>Status:</strong> ${item.status}</p>
+      <p><strong>Donor ID:</strong> ${item.donorId}</p>
+    `;
+
+    // Append the item card to the list container
+    listContainer.appendChild(itemCard);
+  });
+
+  // Append the list container to the result div
+  resultDiv.appendChild(listContainer);
+}
+
 
 async function ensureLoggedIn(showAlert = true) {
   const user = auth.currentUser;
