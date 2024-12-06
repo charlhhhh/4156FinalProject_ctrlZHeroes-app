@@ -1,0 +1,3 @@
+entrypoint: java -jar target/ClientApplication-0.0.1-SNAPSHOT.jar
+runtime: java21
+instance_class: F2
