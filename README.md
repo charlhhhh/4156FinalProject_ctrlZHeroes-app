@@ -2,13 +2,13 @@
 
 # Client Application for Donation Management Service
 
-This is the GitHub repository for the service portion of the Team Project associated with COMS 4156 Advanced Software Engineering. Our group, ctrlZHeroes, comprises the following members: Yanxi Chen, Qirui Ruan, Xinchen Zhang, Songwen Zhao, and Charlie Shen.
+This is the GitHub repository for the app portion of the Team Project associated with COMS 4156 Advanced Software Engineering. Our group, ctrlZHeroes, comprises the following members: Yanxi Chen, Qirui Ruan, Xinchen Zhang, Songwen Zhao, and Charlie Shen.
 
 ---
 
 ## **Overview**
 
-The **Donation Management Client Application** simplifies the process of managing donations and resources. It is designed to interact seamlessly with the **Donation Management Service**, which is deployed at `https://ase-team.ue.r.appspot.com`.
+The **Donation Management Client Application** simplifies the process of managing donations and resources. It is designed to interact seamlessly with the **Donation Management Service**, which is deployed at `https://ase-service.de.r.appspot.com`.
 You can find the repository for the **Resource Management System (RMS) Service** here: [4156FinalProject_ctrlZHeroes Service Repository](https://github.com/YC0101/4156FinalProject_ctrlZHeroes).
 
 This application provides:
@@ -20,17 +20,18 @@ This application provides:
 
 ## **Target Audience**
 
-This application is specifically designed to assist:
+### **Primary Target Audience**
 1. **Homeless**:
-  - To streamline the management of incoming donations and resource distribution.
-  - To improve transparency and efficiency in fulfilling requests for essential supplies.
+   - To streamline the management of incoming donations and resource distribution.
+   - To improve transparency and efficiency in fulfilling requests for essential supplies.
 
+### **Potential Users in the Future**
 2. **Community Organizations**:
-  - To enable better tracking of available and dispatched resources.
-  - To provide a user-friendly interface for managing donations and inventory.
+   - To enable better tracking of available and dispatched resources.
+   - To provide a user-friendly interface for managing donations and inventory.
 
 3. **Donors**:
-  - To simplify the donation process with forms and easy tracking of their contributions.
+   - To simplify the donation process with forms and easy tracking of their contributions.
 
 ---
 
@@ -50,7 +51,11 @@ This application is specifically designed to assist:
 4. **View Dispatched Items**:
   - Track dispatched resources to ensure accountability and transparency.
 
-5. **Authentication**:
+5.**Create Requests**:  
+- Homeless individuals can easily submit requests for essential resources (e.g., food, clothing, medical supplies) through a simple form.  
+- Each request is categorized with metadata like priority level and requester information.  
+
+6. **Authentication**:
 - Secure login and registration powered by Firebase.
 
 ---
@@ -62,9 +67,6 @@ The web application interacts with the service as follows:
   - The frontend handles user input, displaying data and collecting information such as resource requests.
   - The backend service processes the requests, updates the database, and provides responses to the frontend.
   - Requests such as retrieving resources, submitting donations, or checking dispatch status are processed via RESTful APIs provided by the service.
-
-
-
 ---
 
 ## **Prerequisites**
@@ -106,7 +108,7 @@ You can test the APIs directly using tools like **Postman** or **curl**.
 
 - **Example API for retrieving an item**:
   ```bash
-  curl -X GET "http://localhost:8080/client/retrieveItem?resourceId=123&itemId=456"
+  curl -X GET "http://localhost:8080/client/retrieveItem?resourceId=R_COLUMBIA&itemId=b9d2c711-a230-11ef-9c7f-42010a400002"
   ```
 - **Example API for creating a donation:**:
   ```bash
@@ -182,7 +184,7 @@ The following consists of a series of tests you should perform to ensure everyth
         - **Expiration Date:** Select a future date.
         - **Donor ID:** `Amy`
     - Click the **Submit** button.
-    - **Expected Result:** A confirmation message indicates the donation was successfully created.
+    - **Expected Result:** A confirmation message indicates that the donation was not authorized because the app is mainly used to help the homeless.
 
 10. **Create a Request**
 
@@ -200,7 +202,7 @@ The following consists of a series of tests you should perform to ensure everyth
     - Click **Go to Retrieve Item** to navigate to `http://localhost:8000/client/retrieveItemPage`.
     - Fill out the form:
         - **Resource ID:** `R_COLUMBIA`
-        - **Item ID:** `e7a3dd6f-ccf4-4e2f-a632-e3085466b7fa`
+        - **Item ID:** `b9d2c711-a230-11ef-9c7f-42010a400002`
     - Click the **Retrieve Item** button.
     - **Expected Result:** The item's details are displayed on the page.
 
@@ -246,11 +248,12 @@ End of Testing
 - **Create Donation Page** : Allows users to create a new donation by filling out a form.
 - **Retrieve Item Page** : Provides a UI to fetch details of an item by its ID and resource ID.
 - **Available Items Page**: Displays all available items based on a given resource ID.
+- **Create Request Page** : Allows users to create a new request by filling out a form.
 - **Dispatched Items Page**: Tracks dispatched resources for transparency.
 
 
 ### **Service API Endpoints**
-The client communicates with the **Donation Management Service** at `https://ase-team.ue.r.appspot.com`. Below are the service endpoints used:
+The client communicates with the **Donation Management Service** at `https://ase-service.de.r.appspot.com`. Below are the service endpoints used:
 
 | Endpoint                 | Method | Description                         |
 |--------------------------|--------|-------------------------------------|
@@ -295,7 +298,7 @@ The client application uses the following API endpoints via the `ClientService` 
     - `resourceId`
 ---
 ## Deployment
-you can find the deployment of our app: https://ase-app-443104.ue.r.appspot.com/
+you can find the deployment of our app: https://ase-app-new.ue.r.appspot.com
 
 ---
 ## **Tools Used 🛠️**
