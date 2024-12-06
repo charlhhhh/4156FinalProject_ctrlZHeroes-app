@@ -295,7 +295,7 @@ The client application uses the following API endpoints via the `ClientService` 
     - `resourceId`
 ---
 ## Deployment
-you can find the deployment of our app: https://ase-app-443104.ue.r.appspot.com/
+you can find the deployment of our app: https://ase-app-new.ue.r.appspot.com
 
 ---
 ## **Tools Used 🛠️**
