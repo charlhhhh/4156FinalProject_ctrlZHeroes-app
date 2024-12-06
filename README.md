@@ -18,10 +18,6 @@ This application provides:
 
 ---
 
-以下是修改后的版本，将其他群体归为潜在用户，并专注于 homeless 作为主要目标群体：
-
----
-
 ## **Target Audience**
 
 ### **Primary Target Audience**
