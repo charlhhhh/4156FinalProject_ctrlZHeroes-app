@@ -9,6 +9,7 @@ This is the GitHub repository for the service portion of the Team Project associ
 ## **Overview**
 
 The **Donation Management Client Application** simplifies the process of managing donations and resources. It is designed to interact seamlessly with the **Donation Management Service**, which is deployed at `https://ase-team.ue.r.appspot.com`.
+You can find the repository for the **Resource Management System (RMS) Service** here: [4156FinalProject_ctrlZHeroes Service Repository](https://github.com/YC0101/4156FinalProject_ctrlZHeroes).
 
 This application provides:
 - A web-based interface for donors and shelter managers to create, retrieve, and manage donations.
