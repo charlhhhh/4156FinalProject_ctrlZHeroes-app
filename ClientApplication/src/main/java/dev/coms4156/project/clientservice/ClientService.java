@@ -2,6 +2,9 @@ package dev.coms4156.project.clientservice;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
@@ -41,35 +44,47 @@ public class ClientService {
         return restTemplate.getForObject(url, String.class);
     }
 
-    public String createRequest(List<String> itemIds, List<Integer> itemQuantities, String status, String priorityLevel, String requesterInfo, String resourceId) {
-        String requestId = generateRequestId();
-        String url = GlobalInfo.BASE_URL + GlobalInfo.CREATE_REQUEST;
+    public String createRequest(
+        List<String> itemIds,
+        List<Integer> itemQuantities,
+        String priorityLevel,
+        String requesterInfo,
+        String resourceId) {
 
-        // Construct the request body
-        Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("requestId", requestId);
-        requestBody.put("itemIds", itemIds);
-        requestBody.put("itemQuantities", itemQuantities);
-        requestBody.put("status", status);
-        requestBody.put("priorityLevel", priorityLevel);
-        requestBody.put("requesterInfo", requesterInfo);
-        requestBody.put("resourceId", resourceId);
+        // Construct the URL with query parameters
+        String url = GlobalInfo.BASE_URL + GlobalInfo.CREATE_REQUEST
+            + "?requestId=" + generateRequestId()
+            + "&itemIds=" + String.join(",", itemIds)
+            + "&itemQuantities=" + itemQuantities.stream().map(String::valueOf).collect(Collectors.joining(","))
+            + "&status=" + "Pending"
+            + "&priorityLevel=" + priorityLevel
+            + "&requesterInfo=" + requesterInfo
+            + "&resourceId=" + resourceId;
 
         // Set headers
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Create HTTP entity with headers and body
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
+        // Create an empty HTTP entity with headers
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        // Make the POST request
+        // Send the POST request
         try {
             RestTemplate restTemplate = new RestTemplate();
-            return restTemplate.postForObject(url, entity, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+
+            // Return message: Request Created if the request was successful
+            if (response.getStatusCode() == HttpStatus.OK) {
+                return "Request Created";
+            } else {
+                // Log the error response and return null or custom message
+                System.err.println("Error: " + response.getStatusCode() + " - " + response.getBody());
+                return "Failed to create request: " + response.getStatusCode();
+            }
         } catch (Exception e) {
-            // Handle exceptions (e.g., network errors, bad responses)
+            // Log and handle any exceptions
             System.err.println("Error creating request: " + e.getMessage());
-            return null;
+            return "Error occurred while creating request.";
         }
     }
 

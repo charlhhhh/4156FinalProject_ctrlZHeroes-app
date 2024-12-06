@@ -139,62 +139,71 @@ window.createRequest = async function () {
     }
 
     // Retrieve input fields for user-provided data
-    const itemIds = document.getElementById("itemIds").value.split(",").map(id => id.trim());
-    const itemQuantities = document.getElementById("itemQuantities").value.split(",").map(qty => parseInt(qty.trim(), 10));
+    const itemIds = document.getElementById("itemIds").value.split(",").map(
+        id => id.trim());
+    const itemQuantities = document.getElementById(
+        "itemQuantities").value.split(",").map(qty => parseInt(qty.trim(), 10));
+    const priorityLevel = document.getElementById("priorityLevel").value;
     const requesterInfo = document.getElementById("requesterInfo").value;
     const resourceId = document.getElementById("resourceId").value;
 
     // Validate user inputs
-    if (!itemIds.length || !itemQuantities.length || itemIds.length !== itemQuantities.length || !requesterInfo || !resourceId) {
-      alert("Please provide valid Item IDs, quantities, Requester Info, and Resource ID. Ensure IDs and quantities match.");
+    if (!itemIds.length || !itemQuantities.length || itemIds.length
+        !== itemQuantities.length || !requesterInfo || !resourceId) {
+      alert(
+          "Please provide valid Item IDs, quantities, Requester Info, and Resource ID. Ensure IDs and quantities match.");
       return;
     }
 
     // Check if all quantities are valid numbers
     if (itemQuantities.some(qty => isNaN(qty) || qty <= 0)) {
-      alert("Please provide valid quantities (positive integers) for all items.");
+      alert(
+          "Please provide valid quantities (positive integers) for all items.");
       return;
     }
 
     // Auto-generate request details
-    const requestId = `REQ-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+    const requestId = `REQ-${Date.now()}-${Math.random().toString(36).substr(2,
+        5).toUpperCase()}`;
     const status = "Pending"; // Default status
-    const priorityLevel = determinePriorityLevel(itemIds); // Determine priority based on item types
 
-    // Prepare API call
-    const response = await fetch("/client/createRequest", {
-      method: "POST",
+    // Construct the query string for the GET/POST request
+    const queryString = new URLSearchParams({
+      itemIds: itemIds.join(","), // Convert itemIds array to comma-separated string
+      itemQuantities: itemQuantities.join(","), // Convert itemQuantities array to comma-separated string
+      priorityLevel: priorityLevel,
+      requesterInfo: requesterInfo,
+      resourceId: resourceId
+    }).toString();
+
+    // Make a fetch request to the backend
+    fetch(`/createRequest?${queryString}`, {
+      method: 'POST',
       headers: {
-        "Authorization": token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        requestId,
-        itemIds,
-        itemQuantities,
-        status,
-        priorityLevel,
-        requesterInfo,
-        resourceId,
-      }),
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Success:", data);
+      alert("Request created successfully!");
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("Failed to create request. Please try again.");
     });
-
-    // Handle API response
-    if (response.ok) {
-      const result = await response.json(); // Assuming the server responds with JSON
-      document.getElementById("createRequestResult").innerText = `Request created successfully:\n${JSON.stringify(result, null, 2)}`;
-    } else {
-      // Handle potential error responses
-      const error = await response.json();
-      throw new Error(error.message || "Failed to create request.");
-    }
   } catch (error) {
-    // General error handling
-    console.error("Error creating request:", error.message);
-    document.getElementById("createRequestResult").innerText = `Error: ${error.message}`;
-    alert("Error: " + error.message);
-  }
-};
+  // Handle unexpected errors
+  console.error("Error fetching item:", error);
+  document.getElementById("result").innerHTML =
+      '<div class="error-message">An error occurred while creating the request. Please try again later.</div>';
+}
+}
 
 // Helper function to determine priority level based on item types
 function determinePriorityLevel(itemIds) {
